@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Elixir.Models.Product>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="fs-5 fw-medium fst-italic text-primary">Online Store</p>
+            <h1 class="display-6">Want to stay healthy? Choose tea taste</h1>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="store-item position-relative text-center">
+                        <img class="img-fluid store-item-img" src="@item.ImageUrl" alt="@item.Name">
+                        <div class="p-4">
+                            <div class="text-center mb-3">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                            </div>
+                            <h4 class="mb-3">@Html.DisplayFor(modelItem => item.Name)</h4>
+                            <p>@Html.DisplayFor(modelItem => item.ShortDescription)</p>
+                            <h4 class="text-primary">@String.Format("{0:C0}", item.Price) / @Html.DisplayFor(modelItem => item.unit) gram</h4>
+                        </div>
+                        <div class="store-overlay">
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary rounded-pill py-2 px-4 m-2">Chi tiết<i class="fa fa-arrow-right ms-2"></i></a>
+                            <a asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-productId="@item.Id" asp-route-quantity="1" class="btn btn-dark rounded-pill py-2 px-4 m-2">Thêm vào giỏ hàng<i class="fa fa-cart-plus ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .store-item {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .store-item-img {
+        max-height: 250px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .store-item .p-4 {
+        flex: 1;
+    }
+
+    .store-item .store-overlay {
+        margin-top: auto;
+    }
+</style>

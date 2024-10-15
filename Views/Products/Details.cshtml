@@ -1,0 +1,128 @@
+﻿@model Elixir.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Product Details Layout */
+    .container.product-details {
+        display: flex;
+        margin-top: 20px;
+    }
+
+    .muted-text {
+        opacity: 0.5; /* Giảm độ mờ của văn bản xuống 50% */
+    }
+
+    .product-image {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .product-info {
+        flex: 2;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .product-info h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .product-info .price {
+            color: #006633;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .product-info p {
+            margin-bottom: 10px;
+        }
+
+        .product-info .add-to-cart {
+            margin-top: auto; /* Move the add-to-cart button to the bottom */
+        }
+
+        .product-info button {
+            background-color: #006633;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 10px;
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+            .product-info button:hover,
+            .product-info button:active { /* Apply the same style for hover and active states */
+                background-color: #28a745;
+            }
+
+        .product-info .quantity {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+            .product-info .quantity input {
+                width: 70px; /* Adjusted width */
+                margin-right: 10px; /* Move the input to the right of the button */
+                padding: 5px;
+                border: 1px solid #ced4da; /* Add border */
+                border-radius: 0.25rem; /* Add border radius */
+            }
+
+        .product-info .add-to-cart button {
+            display: flex;
+            align-items: center;
+        }
+
+            .product-info .add-to-cart button i {
+                margin-right: 5px;
+            }
+</style>
+
+<div class="container product-details">
+    <!-- Left Column: Product Image -->
+    <div class="product-image">
+        <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid" />
+    </div>
+
+    <!-- Right Column: Product Details -->
+    <div class="product-info">
+        <h1>@Model.Name</h1>
+        <h6>@Model.Category.Name</h6>
+        <br />
+        <!-- Product Description -->
+        <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.ShortDescription))</p>
+        <p class="card-text">@Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Description))</p>
+
+        @if (Model.Status)
+        {
+            <p><strong>Số lượng trong kho:</strong> @Model.QuantityInStock gram</p>
+        }
+        <p class="muted-text price">@Model.Price.ToString("C")</p>
+        <div class="quantity">
+            <!-- Product Quantity -->/-strong/-heart:>:o:-((:-h<form asp-controller="ShoppingCart" asp-action="AddToCart" method="post" class="d-flex align-items-center me-3">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <div class="input-group">
+                    <input type="number" name="quantity" value="@Model.unit" min="0" step="@Model.unit" class="form-control form-control-sm me-2 transparent-input" style="width: 70px;" /> gram
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm me-2 btn-update">
+                    <i class="bi bi-cart-fill"></i>
+                    Add to Cart
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-update {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+</style>

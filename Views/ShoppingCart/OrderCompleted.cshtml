@@ -1,0 +1,17 @@
+﻿@model Elixir.ViewModels.OrderCompletedViewModel
+
+<h2>Đơn hàng đã hoàn tất</h2>
+
+<p>Cảm ơn bạn, đơn hàng của bạn đã được hoàn tất.</p>
+
+<p>Thông tin đơn hàng:</p>
+<ul>
+    <li>Mã đơn hàng: @Model.OrderId</li>
+    <li>Ngày đặt hàng: @Model.OrderDate</li>
+    <li>Tổng giá: @Model.TotalPrice</li>
+    <li>Phương thức giao hàng: @Model.ShippingMethodName</li>
+    <li>Voucher: @Model.VoucherCode</li>
+    <li>Ghi chú: @Model.Notes</li>
+</ul>
+
+<p><a href="/">Quay về trang chủ</a></p>

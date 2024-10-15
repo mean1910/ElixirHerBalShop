@@ -1,0 +1,42 @@
+﻿@model Elixir.Models.Post
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Xóa bài viết</h1>
+<div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="@Model.PostImage" class="card-img-top rounded" alt="Ảnh minh họa" style="max-width: 100%; max-height: 300px; object-fit: contain;">
+            </div>
+            <div class="col-md-8">
+                <h2 class="card-title">@Html.DisplayFor(model => model.Title)</h2>
+
+                <p class="card-text"><strong>Nội dung:</strong> @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Content))</p>
+                <p class="card-text"><strong>Nội dung ngắn:</strong> @Html.DisplayFor(model => model.ShortContent)</p>
+                <p class="card-text"><strong>Tác giả:</strong> @Html.DisplayFor(model => model.Author)</p>
+                <p class="card-text"><strong>Ngày tạo:</strong> @Html.DisplayFor(model => model.DateCreate)</p>
+                <p class="card-text">
+                    <strong>Trạng thái:</strong>
+                    @if (Model.Status)
+                    {
+                        <span class="text-success">Hiển thị trên trang chủ</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">Đã gỡ xuống</span>
+                    }
+                </p>
+            </div>
+        </div>
+        <form asp-action="Delete" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');">
+            <input type="hidden" asp-for="Id" />
+
+            <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');" /> |
+            <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Trở về danh sách</a>
+        </form>
+    </div>

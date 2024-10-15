@@ -1,0 +1,54 @@
+﻿@model Elixir.Models.Category
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card w-100">
+        <div class="card-header bg-danger text-white text-center">
+            Xác nhận xóa
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <thead>
+                        <tr>
+                            <td>Tên loại sản phẩm</td>
+
+                        </tr>
+                    </thead>
+                    <table class="table table-bordered">
+
+                        <tbody>
+                            <tr>
+
+                                <td>@Html.DisplayFor(model => model.Name)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <form asp-action="Delete" onsubmit="return confirm('Bạn có chắc chắn muốn xóa loại sản phẩm này?');">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="text-left mt-2">
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt mr-2"></i> Xóa</button>
+                            <a asp-action="Index" class="btn btn-secondary ml-2"><i class="fas fa-arrow-left mr-2"></i> Quay lại danh sách</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome Kit -->
+    <script>
+        // JavaScript code to show confirmation dialog
+        document.querySelector('form').addEventListener('submit', function (e) {
+            if (!confirm('Bạn có chắc chắn muốn xóa loại sản phẩm này?')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+}

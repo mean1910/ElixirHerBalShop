@@ -1,0 +1,100 @@
+﻿@model Elixir.Models.Post
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Summernote with Bootstrap 4</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+</head>
+<body>
+
+  <div class="container">
+        <h1>Edit</h1>
+
+        <h4>Post</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-10">
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="PostImage" value="@Model.PostImage" /> <!-- Trường ẩn để giữ đường dẫn hình ảnh hiện tại -->
+
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ShortContent" class="control-label"></label>
+                        <input asp-for="ShortContent" class="form-control" />
+                        <span asp-validation-for="ShortContent" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Content" class="control-label">Nội dung</label>
+                        <textarea id="summernote" asp-for="Content" class="form-control" rows="5"></textarea>
+
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                        <div id="summernote"></div>
+                        <script>
+                            $('#summernote').summernote({
+                                placeholder: 'Hello Bootstrap 4',
+                                tabsize: 2,
+                                height: 100
+                            });
+                        </script>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Author" class="control-label"></label>
+                        <input asp-for="Author" class="form-control" />
+                        <span asp-validation-for="Author" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DateCreate" class="control-label"></label>
+                        <input asp-for="DateCreate" class="form-control" />
+                        <span asp-validation-for="DateCreate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label">Hiển thị trên trang chủ</label>
+                        <input asp-for="Status" class="form-control" />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PostImage" class="control-label"></label>
+                        @if (!string.IsNullOrEmpty(Model.PostImage))
+                        {
+                            <div>
+                                <img src="@Model.PostImage" alt="Current Image" style="max-width: 100px;" />
+                            </div>
+                        }
+                        <input type="file" name="newImage" class="form-control" />
+                        <span asp-validation-for="PostImage" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+
+  </div>
+
+</body>
+</html>

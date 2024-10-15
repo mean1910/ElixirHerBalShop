@@ -1,0 +1,70 @@
+﻿@model Elixir.ViewModels.CheckoutViewModel
+@using Elixir.ViewModels
+
+<h2>Checkout</h2>
+
+<div class="container">
+    <h2>Thanh toán</h2>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Họ và tên</label>
+            <div>@Model.Order.ApplicationUser.FirstName @Model.Order.ApplicationUser.LastName</div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <div>@Model.Order.ApplicationUser.Email</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Địa chỉ</label>
+            <div>@Model.Order.ApplicationUser.Address</div>
+            <div><a href="/Identity/Account/Manage">Chỉnh sửa thông tin vận chuyển</a></div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Số điện thoại</label>
+            <div>@Model.Order.ApplicationUser.PhoneNumber</div>
+        </div>
+    </div>
+
+    <form method="post" asp-action="Checkout">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="voucher" class="form-label">Chọn voucher</label>
+                <select class="form-select" id="voucher" name="Order.VoucherId">
+                    <option value="">Không có voucher</option>
+                    @foreach (var voucher in Model.Vouchers)
+                    {
+                        <option value="@voucher.Id">@voucher.Code - @voucher.DiscountAmount.ToString("N0")Đ</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="shippingMethod" class="form-label">Chọn phương thức giao hàng</label>
+                <select class="form-select" id="shippingMethod" name="Order.ShippingMethodId">
+                    @foreach (var method in Model.ShippingMethods)
+                    {
+                        <option value="@method.Id">@method.Name - @method.Price.ToString("N0")Đ</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="paymentMethod" class="form-label">Chọn hình thức thanh toán</label>
+                <select class="form-select" id="paymentMethod" name="Order.PaymentMethod">
+                    <option value="creditCard">Thẻ tín dụng</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bankTransfer">Chuyển khoản ngân hàng</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <label class="form-label">Ghi chú</label>
+                <textarea class="form-control" rows="3" name="Order.Notes"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Hoàn tất thanh toán</button>
+    </form>
+</div>

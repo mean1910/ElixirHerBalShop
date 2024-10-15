@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Elixir.Models.Post>
+
+@{
+    ViewData["Title"] = "Danh sách bài viết";
+}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="fs-5 fw-medium fst-italic text-primary">Blog</p>
+            <h1 class="display-6">Discover Our Latest Posts</h1>
+        </div>
+
+         <div class="row justify-content-center mb-3">
+                <div class="col-md-6">
+                    <form method="get" action="@Url.Action("Search", "Posts")">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" name="searchTerm" placeholder="Tìm kiếm..." aria-label="Tìm kiếm" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        <div class="owl-carousel product-carousel wow fadeInUp" data-wow-delay="0.5s">
+            @foreach (var item in Model)
+            {
+                <div class="store-item position-relative text-center">
+                    <img class="img-fluid store-item-img" src="@item.PostImage" alt="@item.Title">
+                    <div class="p-4">
+                        <h4 class="mb-3">@Html.DisplayFor(modelItem => item.Title)</h4>
+                        <p>@Html.DisplayFor(modelItem => item.ShortContent)</p>
+                        <p class="text-muted">@item.Author - @item.DateCreate.ToString("dd/MM/yyyy")</p>
+                    </div>
+                    <div class="store-overlay">
+                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary rounded-pill py-2 px-4 m-2">Read more <i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+        </div>
+    </div>
+</div>
+
+<style>
+    .store-item {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 15px;
+    }
+
+    .store-item-img {
+        max-height: 250px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .store-item .p-4 {
+        flex: 1;
+    }
+
+    .store-item .store-overlay {
+        margin-top: auto;
+    }
+
+    .owl-carousel .store-item {
+        margin: 15px;
+    }
+
+    .owl-carousel .owl-nav button.owl-prev,
+    .owl-carousel .owl-nav button.owl-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: #000;
+    }
+
+    .owl-carousel .owl-nav button.owl-prev {
+        left: -25px;
+    }
+
+    .owl-carousel .owl-nav button.owl-next {
+        right: -25px;
+    }
+</style>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel({
+                items: 3,
+                loop: true,
+                margin: 10,
+                nav: true,
+                navText: [
+                    '<i class="bi bi-chevron-left"></i>',
+                    '<i class="bi bi-chevron-right"></i>' / -strong / -heart:>: o: -((: -h],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 3
+                    }
+                }
+            });
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+}
